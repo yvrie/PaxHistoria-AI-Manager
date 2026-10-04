@@ -1,0 +1,21 @@
+{
+  "name": "paxhistoria-ai-manager",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A Pax Historia userscript for connecting AI providers and choosing models for Emotes, Conversation, and Advisor/actions.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yvrie/PaxHistoria-AI-Manager.git"
+  },
+  "homepage": "https://github.com/yvrie/PaxHistoria-AI-Manager#readme",
+  "bugs": {
+    "url": "https://github.com/yvrie/PaxHistoria-AI-Manager/issues"
+  },
+  "scripts": {
+    "build": "node scripts/build.mjs"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0"
+  }
+}
