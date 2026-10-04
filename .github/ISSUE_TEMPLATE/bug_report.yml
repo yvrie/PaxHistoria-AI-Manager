@@ -1,0 +1,50 @@
+name: Bug report
+description: Something in AI Manager is not working.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. Check the [troubleshooting guide](https://github.com/yvrie/PaxHistoria-AI-Manager/blob/main/docs/troubleshooting.md) first.
+        **Remove your API key** from anything you paste.
+  - type: input
+    id: version
+    attributes:
+      label: Script version
+      description: Shown in your userscript manager.
+      placeholder: 1.0.0
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and userscript manager
+      placeholder: Chrome 130, Tampermonkey 5.3
+    validations:
+      required: true
+  - type: input
+    id: provider
+    attributes:
+      label: Provider and model
+      placeholder: OpenRouter, your model name
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you did, what you expected, and what you saw instead.
+    validations:
+      required: true
+  - type: textarea
+    id: message
+    attributes:
+      label: Message under "Connect and load models"
+      description: Copy it as shown, if there is one.
+      render: text
+  - type: textarea
+    id: events
+    attributes:
+      label: Debug events
+      description: Turn on Record debug events in Advanced settings, reproduce the problem, then copy the result of Show recent events.
+      render: text

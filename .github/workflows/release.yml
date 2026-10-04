@@ -1,0 +1,55 @@
+name: Release
+
+# Push a tag like v1.0.0 and this builds the script and publishes a GitHub release.
+on:
+  push:
+    tags: ["v*"]
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Check the tag matches the package version
+        run: |
+          tag="${GITHUB_REF_NAME#v}"
+          version="$(node -p "require('./package.json').version")"
+          if [ "$tag" != "$version" ]; then
+            echo "Tag v$tag does not match package.json version $version. Bump package.json first." >&2
+            exit 1
+          fi
+
+      - run: npm run build
+
+      - name: Check the built script has the same version
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          grep -q "^// @version      $version$" dist/PaxHistoria-AI-Manager.user.js
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          version="$(node -p "require('./package.json').version")"
+          # If you made the release in the GitHub website, it already exists: just attach the script.
+          if gh release view "$GITHUB_REF_NAME" >/dev/null 2>&1; then
+            gh release upload "$GITHUB_REF_NAME" dist/PaxHistoria-AI-Manager.user.js --clobber
+          else
+            gh release create "$GITHUB_REF_NAME" \
+              dist/PaxHistoria-AI-Manager.user.js \
+              --title "AI Manager $version" \
+              --notes "[Install the script](https://github.com/${GITHUB_REPOSITORY}/releases/download/${GITHUB_REF_NAME}/PaxHistoria-AI-Manager.user.js) in a userscript manager like Tampermonkey. Turn off any older copy first." \
+              --generate-notes \
+              --verify-tag
+          fi

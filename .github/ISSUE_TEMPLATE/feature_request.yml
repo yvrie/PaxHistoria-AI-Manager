@@ -1,0 +1,16 @@
+name: Feature request
+description: Suggest an improvement.
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What would you like to do?
+      description: Describe the problem first, then any solution you have in mind.
+    validations:
+      required: true
+  - type: input
+    id: provider
+    attributes:
+      label: Provider involved
+      description: Leave blank if it applies to all of them.

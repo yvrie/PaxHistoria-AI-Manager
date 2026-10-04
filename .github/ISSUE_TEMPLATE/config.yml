@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Troubleshooting guide
+    url: https://github.com/yvrie/PaxHistoria-AI-Manager/blob/main/docs/troubleshooting.md
+    about: Many common problems are covered here.
